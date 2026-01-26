@@ -1,3 +1,4 @@
+streamlit
 yfinance
 pandas
 numpy
@@ -5,7 +6,6 @@ pandas_ta
 scikit-learn
 xgboost
 lightgbm
-tensorflow
-matplotlib
 plotly
-streamlit
+protobuf
+matplotlib
