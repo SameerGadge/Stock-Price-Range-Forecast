@@ -8,3 +8,4 @@ xgboost
 lightgbm
 plotly
 protobuf
+matplotlib
