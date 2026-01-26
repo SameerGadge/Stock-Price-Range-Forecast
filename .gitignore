@@ -1,0 +1,20 @@
+# Ignore virtual environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Ignore data files (We fetch fresh data every run)
+data/
+*.csv
+
+# Ignore IDE settings
+.vscode/
+.idea/
+.DS_Store
+
+# Ignore Streamlit cache
+.streamlit/
+
+ignore/
