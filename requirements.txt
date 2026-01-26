@@ -8,4 +8,5 @@ lightgbm
 tensorflow
 matplotlib
 plotly
-streamlit
+streamlit>=1.30.0
+protobuf<5
