@@ -1,12 +1,11 @@
+streamlit
 yfinance
-pandas
-numpy
+pandas<2.2.0
+numpy<2.0.0
 pandas_ta
 scikit-learn
 xgboost
 lightgbm
-tensorflow
-matplotlib
+tensorflow-cpu
 plotly
-streamlit>=1.30.0
-protobuf<5
+protobuf<5.0.0
