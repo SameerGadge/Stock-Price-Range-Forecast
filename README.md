@@ -1,4 +1,4 @@
-# 📈 AI Stock Price Interval Forecaster
+# AI Stock Price Interval Forecaster
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://stock-price-range-forecast.streamlit.app/)
 [![Daily Forecast Action](https://github.com/SameerGadge/Stock-Price-Range-Forecast/actions/workflows/update_dashboard.yml/badge.svg)](https://github.com/SameerGadge/Stock-Price-Range-Forecast/actions/workflows/update_dashboard.yml)
@@ -7,14 +7,14 @@ An end-to-end Machine Learning pipeline that forecasts **Price Intervals** (Conf
 
 It features a **Triple-Engine Architecture**, giving you the ultimate flexibility in forecasting power.
 
-## 🧠 Triple AI Engines
+##  Triple AI Engines
 The dashboard allows you to toggle between three powerful forecasting modes:
 
-1.  **⚡ LightGBM (Statistical):** Fast, stable, and excellent for volatility-based predictions.
-2.  **🧠 LSTM (Deep Learning):** A Recurrent Neural Network designed to catch non-linear sequential patterns.
-3.  **💎 Ensemble (Hybrid):** The "Gold Standard" mode. Trains **both** models simultaneously and averages their outputs. This reduces individual model errors and typically provides the most robust forecast.
+1.  ** LightGBM (Statistical):** Fast, stable, and excellent for volatility-based predictions.
+2.  ** LSTM (Deep Learning):** A Recurrent Neural Network designed to catch non-linear sequential patterns.
+3.  ** Ensemble (Hybrid):** The "Gold Standard" mode. Trains **both** models simultaneously and averages their outputs. This reduces individual model errors and typically provides the most robust forecast.
 
-## 📊 Key Features
+##  Key Features
 * **Probabilistic Forecasting:** Predicts the **5th** and **95th** percentile of future price action.
 * **Multi-Horizon Support:** Forecasts for **5 Days** (Swing), **21 Days** (Monthly), and **60 Days** (Quarterly).
 * **Global Market Support:**
@@ -23,7 +23,7 @@ The dashboard allows you to toggle between three powerful forecasting modes:
 * **Dynamic Calibration:** Uncertainty bands automatically widen during high volatility (High VIX/ATR).
 * **Full Automation:** GitHub Actions workflow retrains models every night at market close.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 * **Core:** Python 3.9+
 * **ML Engines:**
     * `LightGBM` (Gradient Boosting)
@@ -32,7 +32,7 @@ The dashboard allows you to toggle between three powerful forecasting modes:
 * **Visualization:** Plotly (Interactive Charts)
 * **Deployment:** Streamlit Cloud (Frontend) & GitHub Pages (Static Reports)
 
-## 📉 How It Works
+##  How It Works
 The model avoids "predicting the exact future price." Instead, it answers:
 1.  **Lower Bound:** "There is a 95% chance the price will stay *above* this line." (Support)
 2.  **Upper Bound:** "There is a 95% chance the price will stay *below* this line." (Resistance)
@@ -41,7 +41,7 @@ The model avoids "predicting the exact future price." Instead, it answers:
 * **BUY:** When Price dips below the Lower Bound (Statistical Oversold).
 * **SELL:** When Price spikes above the Upper Bound (Statistical Overbought).
 
-## 📦 Local Installation
+##  Local Installation
 To run this project on your own machine:
 
 1.  **Clone the repo:**
@@ -60,5 +60,5 @@ To run this project on your own machine:
     streamlit run app.py
     ```
 
-## 📜 License
+##  License
 MIT License - feel free to use this for your own trading or research!
