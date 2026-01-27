@@ -148,7 +148,11 @@ if st.button("🚀 Run Forecast Model"):
             c2.metric("📍 Current Price", f"{CURRENCY}{latest_price:.2f}")
             c3.metric("📈 Bullish Limit", f"{CURRENCY}{p_high:.2f}", delta=f"{f_high*100:.2f}%")
             
-            st.info(f"Model predicts {TICKER} will likely stay between **{CURRENCY}{p_low:.2f}** and **{CURRENCY}{p_high:.2f}** over the next {HORIZON} days.")
+            # FIX: Escape the dollar sign for Markdown so it doesn't trigger LaTeX math
+            d_curr = "\$" if CURRENCY == "$" else CURRENCY
+            
+            st.info(f"Model predicts {TICKER} will likely stay between **{d_curr}{p_low:.2f}** and **{d_curr}{p_high:.2f}** over the next {HORIZON} days.")
+            
             st.markdown("---")
             
             # Backtest Visualization
