@@ -9,3 +9,4 @@ lightgbm
 plotly
 protobuf
 matplotlib
+tensorflow-cpu
