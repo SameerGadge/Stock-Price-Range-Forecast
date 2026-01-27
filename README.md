@@ -1,4 +1,4 @@
-# AI Stock Price Interval Forecaster
+# Stock Price Range Forecaster
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://stock-price-range-forecast.streamlit.app/)
 [![Daily Forecast Action](https://github.com/SameerGadge/Stock-Price-Range-Forecast/actions/workflows/update_dashboard.yml/badge.svg)](https://github.com/SameerGadge/Stock-Price-Range-Forecast/actions/workflows/update_dashboard.yml)
@@ -7,7 +7,7 @@ An end-to-end Machine Learning pipeline that forecasts **Price Intervals** (Conf
 
 It features a **Triple-Engine Architecture**, giving you the ultimate flexibility in forecasting power.
 
-##  Triple AI Engines
+##  Triple Models
 The dashboard allows you to toggle between three powerful forecasting modes:
 
 1.  ** LightGBM (Statistical):** Fast, stable, and excellent for volatility-based predictions.
@@ -25,7 +25,7 @@ The dashboard allows you to toggle between three powerful forecasting modes:
 
 ##  Tech Stack
 * **Core:** Python 3.9+
-* **ML Engines:**
+* **ML/DL Engines:**
     * `LightGBM` (Gradient Boosting)
     * `TensorFlow/Keras` (Deep Learning/LSTM)
 * **Data Source:** `yfinance` (Yahoo Finance API)
