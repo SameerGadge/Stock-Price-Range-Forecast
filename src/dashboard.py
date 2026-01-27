@@ -66,7 +66,7 @@ class DashboardGenerator:
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-2 sidebar bg-dark">
-                        <h4 class="text-center mb-4">📺 Watchlist</h4>
+                        <h4 class="text-center mb-4"> Watchlist</h4>
                         <div class="list-group list-group-flush">
                             {sidebar_html}
                         </div>
@@ -74,7 +74,7 @@ class DashboardGenerator:
                     
                     <div class="col-md-10 p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h1>🤖 {self.ticker} AI Forecast</h1>
+                            <h1> {self.ticker} AI Forecast</h1>
                             <span class="badge bg-secondary">Latest Data: {df['Date'].iloc[-1].date()}</span>
                         </div>
                         <div class="row mb-4">
