@@ -179,7 +179,7 @@ if st.button("Run Forecast Model"):
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=df.index[split_idx:], y=ph_price, fill=None, line=dict(color='rgba(0,0,0,0)'), showlegend=False))
             fig.add_trace(go.Scatter(x=df.index[split_idx:], y=pl_price, fill='tonexty', fillcolor='rgba(0, 100, 255, 0.2)', line=dict(color='rgba(0,0,0,0)'), name='Confidence'))
-            fig.add_trace(go.Scatter(x=df.index[split_idx:], y=y_price, mode='lines', name='Actual', line=dict(color='#00F0FF')))
+            fig.add_trace(go.Scatter(x=df.index[split_idx:], y=y_price, mode='lines', name='Actual', line=dict(color='#000000')))
             st.plotly_chart(fig, use_container_width=True)
 
         except Exception as e:
