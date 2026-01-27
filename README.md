@@ -18,8 +18,8 @@ The dashboard allows you to toggle between three powerful forecasting modes:
 * **Probabilistic Forecasting:** Predicts the **5th** and **95th** percentile of future price action.
 * **Multi-Horizon Support:** Forecasts for **5 Days** (Swing), **21 Days** (Monthly), and **60 Days** (Quarterly).
 * **Global Market Support:**
-    * **🇮🇳 Indian Stocks:** NSE/BSE tickers (e.g., `INFY.NS`) with **₹** formatting and **India VIX** integration.
-    * **🇺🇸 US Stocks:** NYSE/NASDAQ tickers (e.g., `AAPL`) with **$** formatting and **CBOE VIX**.
+    * ** Indian Stocks:** NSE/BSE tickers (e.g., `INFY.NS`) with **₹** formatting and **India VIX** integration.
+    * ** US Stocks:** NYSE/NASDAQ tickers (e.g., `AAPL`) with **$** formatting and **CBOE VIX**.
 * **Dynamic Calibration:** Uncertainty bands automatically widen during high volatility (High VIX/ATR).
 * **Full Automation:** GitHub Actions workflow retrains models every night at market close.
 
