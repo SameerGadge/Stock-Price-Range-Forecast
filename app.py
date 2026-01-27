@@ -26,10 +26,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-st.sidebar.header("⚙️ Configuration")
+st.sidebar.header("Configuration")
 
 # Model Selection
-st.sidebar.subheader("🧠 AI Engine")
+st.sidebar.subheader("Model Engine")
 MODEL_TYPE = st.sidebar.radio(
     "Choose Model Architecture:",
     ("LightGBM (Fast & Stable)", "LSTM Deep Learning (Experimental)", "Ensemble (Best Accuracy)"),
@@ -38,7 +38,7 @@ MODEL_TYPE = st.sidebar.radio(
 
 # History
 if st.session_state['history']:
-    st.sidebar.subheader("🕒 Recent")
+    st.sidebar.subheader("Recent")
     for stock in reversed(st.session_state['history']):
         if st.sidebar.button(stock, key=f"hist_{stock}"):
             set_ticker(stock)
@@ -52,12 +52,12 @@ SPLIT_RATIO = 0.80
 if TICKER.endswith((".NS", ".BO")): CURRENCY = "₹"
 else: CURRENCY = "$"
 
-st.title(f"📈 {TICKER} Price Interval Forecasting")
+st.title(f"{TICKER} Price Interval Forecasting")
 st.markdown(f"**Engine:** {MODEL_TYPE} • {int(CONFIDENCE*100)}% Confidence Interval")
 
 # --- MAIN APP LOGIC ---
 
-if st.button("🚀 Run Forecast Model"):
+if st.button("Run Forecast Model"):
     with st.spinner(f"Training {MODEL_TYPE} on {TICKER}..."):
         try:
             # 1. Data Pipeline
@@ -65,7 +65,7 @@ if st.button("🚀 Run Forecast Model"):
             raw_df = loader.fetch_data()
             
             if raw_df is None or len(raw_df) < 200:
-                st.error("❌ Insufficient data."); st.stop()
+                st.error("Insufficient data."); st.stop()
 
             # Update History
             if TICKER in st.session_state['history']: st.session_state['history'].remove(TICKER)
@@ -142,11 +142,11 @@ if st.button("🚀 Run Forecast Model"):
             p_high = latest_price * (1 + f_high)
 
             st.markdown("---")
-            st.subheader(f"🔮 Future Forecast (Target: {future_date.date()})")
+            st.subheader(f" Future Forecast (Target: {future_date.date()})")
             c1, c2, c3 = st.columns(3)
-            c1.metric("📉 Bearish Limit", f"{CURRENCY}{p_low:.2f}", delta=f"{f_low*100:.2f}%", delta_color="inverse")
-            c2.metric("📍 Current Price", f"{CURRENCY}{latest_price:.2f}")
-            c3.metric("📈 Bullish Limit", f"{CURRENCY}{p_high:.2f}", delta=f"{f_high*100:.2f}%")
+            c1.metric(" Bearish Limit", f"{CURRENCY}{p_low:.2f}", delta=f"{f_low*100:.2f}%", delta_color="inverse")
+            c2.metric(" Current Price", f"{CURRENCY}{latest_price:.2f}")
+            c3.metric(" Bullish Limit", f"{CURRENCY}{p_high:.2f}", delta=f"{f_high*100:.2f}%")
             
             # FIX: Escape the dollar sign for Markdown so it doesn't trigger LaTeX math
             d_curr = "\$" if CURRENCY == "$" else CURRENCY
@@ -156,7 +156,7 @@ if st.button("🚀 Run Forecast Model"):
             st.markdown("---")
             
             # Backtest Visualization
-            st.subheader("📊 Historical Backtest")
+            st.subheader(" Historical Backtest")
             
             ctr = (pred_high + pred_low)/2; w = pred_high - pred_low
             pred_low = ctr - (w*calib_factor); pred_high = ctr + (w*calib_factor)
