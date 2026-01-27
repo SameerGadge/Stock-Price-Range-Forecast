@@ -4,10 +4,9 @@ import plotly.graph_objects as go
 from src.data_loader import DataLoader
 from src.feature_eng import FeatureEngineer
 from src.models import QuantileModels
-from src.deep_models import DeepQuantileModel # <--- NEW IMPORT
+from src.deep_models import DeepQuantileModel
 from src.strategy import SignalGenerator
 from src.utils import evaluate_metrics
-from src.sentiment import NewsSentiment 
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="AI Stock Forecaster", layout="wide", page_icon="📈")
@@ -29,7 +28,7 @@ st.markdown("""
 # --- SIDEBAR ---
 st.sidebar.header("⚙️ Configuration")
 
-# 1. MODEL SELECTION TOGGLE (NEW)
+# Model Selection
 st.sidebar.subheader("🧠 AI Engine")
 MODEL_TYPE = st.sidebar.radio(
     "Choose Model Architecture:",
@@ -53,8 +52,6 @@ SPLIT_RATIO = 0.80
 if TICKER.endswith((".NS", ".BO")): CURRENCY = "₹"
 else: CURRENCY = "$"
 
-# ... (Keep Sentiment Code Here) ...
-
 st.title(f"📈 {TICKER} Price Interval Forecasting")
 st.markdown(f"**Engine:** {MODEL_TYPE} • {int(CONFIDENCE*100)}% Confidence Interval")
 
@@ -73,6 +70,7 @@ if st.button("🚀 Run Forecast Model"):
             # Update History
             if TICKER in st.session_state['history']: st.session_state['history'].remove(TICKER)
             st.session_state['history'].append(TICKER)
+            if len(st.session_state['history']) > 5: st.session_state['history'].pop(0)
 
             # 2. Features
             fe = FeatureEngineer(raw_df)
@@ -85,7 +83,7 @@ if st.button("🚀 Run Forecast Model"):
             X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
             y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
 
-            # 3. MODEL SWITCHING LOGIC (NEW)
+            # 3. Model Logic
             if "LightGBM" in MODEL_TYPE:
                 # --- LightGBM Path ---
                 alpha_lower = (1 - CONFIDENCE) / 2
@@ -102,19 +100,19 @@ if st.button("🚀 Run Forecast Model"):
                 pred_high = m_high.predict(X_test)
 
             else:
-                # --- LSTM Path (Deep Learning) ---
+                # --- LSTM Path ---
                 dl = DeepQuantileModel(input_shape=(1, len(feature_cols)))
-                dl.train(X_train, y_train, epochs=20) # Fast training for demo
+                dl.train(X_train, y_train, epochs=20) 
                 
-                # Predictions (DeepQuantileModel handles reshaping internally)
+                # Predictions
                 last_row = fe.df.iloc[[-1]][feature_cols]
                 f_low, f_high = dl.predict(last_row)
-                f_low = f_low[0]; f_high = f_high[0] # Extract scalar
+                f_low = f_low[0]; f_high = f_high[0]
                 
                 # Backtest Predictions
                 pred_low, pred_high = dl.predict(X_test)
 
-            # 4. Calibration & Display (Shared Logic)
+            # 4. Calibration & Display
             calib_factor = 0.6 if HORIZON == 5 else (1.0 if HORIZON == 21 else 1.5)
             
             latest_price = raw_df['Close'].iloc[-1]
@@ -129,17 +127,17 @@ if st.button("🚀 Run Forecast Model"):
             p_low = latest_price * (1 + f_low)
             p_high = latest_price * (1 + f_high)
 
-            # ... (Display Logic & Charts - SAME AS BEFORE) ...
-            
             st.markdown("---")
             st.subheader(f"🔮 Future Forecast (Target: {future_date.date()})")
             c1, c2, c3 = st.columns(3)
             c1.metric("📉 Bearish Limit", f"{CURRENCY}{p_low:.2f}", delta=f"{f_low*100:.2f}%", delta_color="inverse")
             c2.metric("📍 Current Price", f"{CURRENCY}{latest_price:.2f}")
             c3.metric("📈 Bullish Limit", f"{CURRENCY}{p_high:.2f}", delta=f"{f_high*100:.2f}%")
+            
+            st.info(f"Model predicts {TICKER} will likely stay between **{CURRENCY}{p_low:.2f}** and **{CURRENCY}{p_high:.2f}** over the next {HORIZON} days.")
             st.markdown("---")
             
-            # Backtest Visualization (Shared)
+            # Backtest Visualization
             st.subheader("📊 Historical Backtest")
             
             ctr = (pred_high + pred_low)/2; w = pred_high - pred_low
