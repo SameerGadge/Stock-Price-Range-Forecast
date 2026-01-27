@@ -32,8 +32,8 @@ st.sidebar.header("⚙️ Configuration")
 st.sidebar.subheader("🧠 AI Engine")
 MODEL_TYPE = st.sidebar.radio(
     "Choose Model Architecture:",
-    ("LightGBM (Fast & Stable)", "LSTM Deep Learning (Experimental)"),
-    index=0
+    ("LightGBM (Fast & Stable)", "LSTM Deep Learning (Experimental)", "Ensemble (Best Accuracy)"),
+    index=2
 )
 
 # History
@@ -82,35 +82,49 @@ if st.button("🚀 Run Forecast Model"):
             split_idx = int(len(X) * SPLIT_RATIO)
             X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
             y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
+            
+            # Prepare Inputs
+            last_row = fe.df.iloc[[-1]][feature_cols]
 
             # 3. Model Logic
-            if "LightGBM" in MODEL_TYPE:
-                # --- LightGBM Path ---
+            f_low, f_high = 0, 0
+            pred_low, pred_high = 0, 0
+            
+            # --- MODEL A: LightGBM ---
+            if "LightGBM" in MODEL_TYPE or "Ensemble" in MODEL_TYPE:
                 alpha_lower = (1 - CONFIDENCE) / 2
                 qm = QuantileModels(alpha_lower, 1 - alpha_lower)
-                m_low, m_high = qm.train_lgbm(X_train, y_train)
+                m_low_lgb, m_high_lgb = qm.train_lgbm(X_train, y_train)
                 
                 # Predictions
-                last_row = fe.df.iloc[[-1]][feature_cols]
-                f_low = m_low.predict(last_row)[0]
-                f_high = m_high.predict(last_row)[0]
-                
-                # Backtest Predictions
-                pred_low = m_low.predict(X_test)
-                pred_high = m_high.predict(X_test)
+                f_low_lgb = m_low_lgb.predict(last_row)[0]
+                f_high_lgb = m_high_lgb.predict(last_row)[0]
+                pred_low_lgb = m_low_lgb.predict(X_test)
+                pred_high_lgb = m_high_lgb.predict(X_test)
 
-            else:
-                # --- LSTM Path ---
+            # --- MODEL B: LSTM ---
+            if "LSTM" in MODEL_TYPE or "Ensemble" in MODEL_TYPE:
                 dl = DeepQuantileModel(input_shape=(1, len(feature_cols)))
                 dl.train(X_train, y_train, epochs=20) 
                 
                 # Predictions
-                last_row = fe.df.iloc[[-1]][feature_cols]
-                f_low, f_high = dl.predict(last_row)
-                f_low = f_low[0]; f_high = f_high[0]
-                
-                # Backtest Predictions
-                pred_low, pred_high = dl.predict(X_test)
+                f_low_lstm, f_high_lstm = dl.predict(last_row)
+                f_low_lstm = f_low_lstm[0]; f_high_lstm = f_high_lstm[0]
+                pred_low_lstm, pred_high_lstm = dl.predict(X_test)
+
+            # --- AGGREGATION (Ensemble Logic) ---
+            if "Ensemble" in MODEL_TYPE:
+                f_low = (f_low_lgb + f_low_lstm) / 2
+                f_high = (f_high_lgb + f_high_lstm) / 2
+                pred_low = (pred_low_lgb + pred_low_lstm) / 2
+                pred_high = (pred_high_lgb + pred_high_lstm) / 2
+            elif "LightGBM" in MODEL_TYPE:
+                f_low, f_high = f_low_lgb, f_high_lgb
+                pred_low, pred_high = pred_low_lgb, pred_high_lgb
+            else: # LSTM
+                f_low, f_high = f_low_lstm, f_high_lstm
+                pred_low, pred_high = pred_low_lstm, pred_high_lstm
+
 
             # 4. Calibration & Display
             calib_factor = 0.6 if HORIZON == 5 else (1.0 if HORIZON == 21 else 1.5)

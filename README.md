@@ -5,26 +5,14 @@
 
 An end-to-end Machine Learning pipeline that forecasts **Price Intervals** (Confidence Bands) for any stock. Unlike traditional models that predict a single "wrong" price, this model predicts a **Probabilistic Range** (90% Confidence Interval) to help traders manage risk.
 
-It features a **Dual-Engine Architecture**, allowing you to switch between Statistical Machine Learning and Deep Learning in real-time.
+It features a **Triple-Engine Architecture**, giving you the ultimate flexibility in forecasting power.
 
-## 🚀 Live Demos
-* **🔮 Dynamic Analysis (Streamlit):** [Launch Interactive App](https://stock-price-range-forecast.streamlit.app/)  
-    *(Analyze ANY stock in real-time: `RELIANCE.NS`, `NVDA`, `TCS.NS`, etc.)*
-* **📊 Daily Static Report:** [View GitHub Pages Dashboard](https://sameergadge.github.io/Stock-Price-Range-Forecast/)  
-    *(Automated daily report for watchlist stocks)*
+## 🧠 Triple AI Engines
+The dashboard allows you to toggle between three powerful forecasting modes:
 
-## 🧠 Dual AI Engines
-The dashboard allows you to toggle between two powerful forecasting engines:
-
-1.  **⚡ LightGBM (Statistical Boosting):**
-    * **Best for:** Speed, tabular data (RSI, ATR, VIX), and stability.
-    * **Method:** Gradient Boosted Decision Trees with Quantile Objective.
-    * **Performance:** Excellent on daily time-frames with limited history.
-
-2.  **🧠 LSTM (Deep Learning):**
-    * **Best for:** Complex sequential patterns and non-linear trends.
-    * **Method:** Long Short-Term Memory (Recurrent Neural Network) with **Custom Quantile Loss**.
-    * **Performance:** Experimental engine that captures temporal dependencies better than trees.
+1.  **⚡ LightGBM (Statistical):** Fast, stable, and excellent for volatility-based predictions.
+2.  **🧠 LSTM (Deep Learning):** A Recurrent Neural Network designed to catch non-linear sequential patterns.
+3.  **💎 Ensemble (Hybrid):** The "Gold Standard" mode. Trains **both** models simultaneously and averages their outputs. This reduces individual model errors and typically provides the most robust forecast.
 
 ## 📊 Key Features
 * **Probabilistic Forecasting:** Predicts the **5th** and **95th** percentile of future price action.
