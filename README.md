@@ -1,9 +1,9 @@
-# Stock Price Range Forecaster
+# Stock Price Range Forecast
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://stock-price-range-forecast.streamlit.app/)
 [![Daily Forecast Action](https://github.com/SameerGadge/Stock-Price-Range-Forecast/actions/workflows/update_dashboard.yml/badge.svg)](https://github.com/SameerGadge/Stock-Price-Range-Forecast/actions/workflows/update_dashboard.yml)
 
-An end-to-end Machine Learning pipeline that forecasts **Price Intervals** (Confidence Bands) for any stock. Unlike traditional models that predict a single "wrong" price, this model predicts a **Probabilistic Range** (90% Confidence Interval) to help traders manage risk.
+An end-to-end Deep Learning & Machine Learning pipeline that forecasts **Price Intervals** (Confidence Bands) for any stock. Unlike traditional models that predict a single "wrong" price, this model predicts a **Probabilistic Range** (90% Confidence Interval) to help traders manage risk.
 
 It features a **Triple-Engine Architecture**, giving you the ultimate flexibility in forecasting power.
 
